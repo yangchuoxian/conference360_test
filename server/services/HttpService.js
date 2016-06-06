@@ -125,6 +125,8 @@ var retrieveAccessTokenFromRemoteServer = function() {
 		client.quit();
 		return promise.resolve(accessToken);
 	}).catch(function(err) {
+		console.log(err);
+
 		return promise.reject('Retrieve access token failed');
 	});
 };
