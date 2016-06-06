@@ -85,7 +85,10 @@ var oauthHttpGet = function(url) {
 var oauthHttpPost = function(url, body) {
 	return getAccessToken()
 	.then(function(accessToken) {
-		return httpPost(url, {'Authorization': 'Bearer ' + accessToken}, body);
+		return httpPost(url, {
+			'Authorization': 'Bearer ' + accessToken,
+			'Content-Type': 'application/json'
+		}, body);
 	}).then(function(response) {
 		return promise.resolve(response);
 	}).catch(function(err) {
@@ -93,7 +96,10 @@ var oauthHttpPost = function(url, body) {
 			// access token is expired, retrieve the access token again from remote salesforce server
 			return retrieveAccessTokenFromRemoteServer()
 			.then(function(accessToken) {
-				return httpPost(url, {'Authorization': 'Bearer ' + accessToken}, body);
+				return httpPost(url, {
+					'Authorization': 'Bearer ' + accessToken,
+					'Content-Type': 'application/json'
+				}, body);
 			}).then(function(response) {
 				return promise.resolve(fetchedData);	
 			}).catch(function(err) {
