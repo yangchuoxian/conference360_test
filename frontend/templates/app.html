@@ -1,5 +1,10 @@
-<md-card>
- 	<a md-raised-button [routerLink]="['/login']">Login</a>
-	<a md-raised-button [routerLink]="['/editor']">Editor</a>
-</md-card>
+<nav class="navbar navbar-default">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-text" [routerLink]="['/events']">Event List</a>
+		 	<a class="navbar-text" (click)="goCreateEventOrLoginFirst()">Create Event</a>
+			<a class="navbar-text" [routerLink]="['/editor']">Editor</a>
+		</div>
+	</div>
+</nav>
 <router-outlet></router-outlet>

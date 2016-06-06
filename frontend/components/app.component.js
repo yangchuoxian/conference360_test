@@ -19,14 +19,17 @@ var event_list_component_1 = require('./event_list.component');
 var login_component_1 = require('./login.component');
 var editor_component_1 = require('./editor.component');
 var event_details_component_1 = require('./event_details.component');
+var new_event_component_1 = require('./new_event.component');
 // custom services
 var state_service_1 = require('../services/state.service');
+var salesforce_user_service_1 = require('../services/salesforce_user.service');
 // config
 var constants_1 = require('../config/constants');
 var AppComponent = (function () {
-    function AppComponent(router, stateService) {
+    function AppComponent(router, stateService, salesforceUserService) {
         this.router = router;
         this.stateService = stateService;
+        this.salesforceUserService = salesforceUserService;
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,21 +39,30 @@ var AppComponent = (function () {
             }
         });
     };
+    AppComponent.prototype.goCreateEventOrLoginFirst = function () {
+        var _this = this;
+        this.salesforceUserService.hasUserLoggedIn().subscribe(
+        // user has already logged in
+        function (data) { return _this.router.navigate(['/new_event']); }, 
+        // user has NOT logged in, now show login view
+        function (error) { return _this.router.navigate(['/login']); });
+    };
     AppComponent = __decorate([
         router_1.Routes([
             { path: '/', component: event_list_component_1.EventListComponent },
             { path: '/login', component: login_component_1.LoginComponent },
             { path: '/editor', component: editor_component_1.EditorComponent },
             { path: '/events', component: event_list_component_1.EventListComponent },
-            { path: '/event_details', component: event_details_component_1.EventDetailsComponent }
+            { path: '/event_details', component: event_details_component_1.EventDetailsComponent },
+            { path: '/new_event', component: new_event_component_1.NewEventComponent }
         ]),
         core_1.Component({
             selector: 'vt-app',
             templateUrl: 'frontend/templates/app.html',
-            directives: [router_1.ROUTER_DIRECTIVES, button_1.MD_BUTTON_DIRECTIVES, card_1.MD_CARD_DIRECTIVES, login_component_1.LoginComponent],
-            providers: [router_1.ROUTER_PROVIDERS]
+            directives: [router_1.ROUTER_DIRECTIVES, button_1.MD_BUTTON_DIRECTIVES, card_1.MD_CARD_DIRECTIVES],
+            providers: [router_1.ROUTER_PROVIDERS, salesforce_user_service_1.SalesforceUserService]
         }), 
-        __metadata('design:paramtypes', [router_1.Router, state_service_1.StateService])
+        __metadata('design:paramtypes', [router_1.Router, state_service_1.StateService, salesforce_user_service_1.SalesforceUserService])
     ], AppComponent);
     return AppComponent;
 }());

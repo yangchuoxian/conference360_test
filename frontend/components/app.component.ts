@@ -9,8 +9,10 @@ import { EventListComponent } from './event_list.component'
 import { LoginComponent } from './login.component'
 import { EditorComponent } from './editor.component'
 import { EventDetailsComponent } from './event_details.component'
+import { NewEventComponent } from './new_event.component'
 // custom services
 import { StateService } from '../services/state.service'
+import { SalesforceUserService } from '../services/salesforce_user.service'
 // config
 import { constants } from '../config/constants'
 
@@ -20,21 +22,19 @@ import { constants } from '../config/constants'
 	{ path: '/editor', component: EditorComponent },
 
 	{ path: '/events', component: EventListComponent },
-	{ path: '/event_details', component: EventDetailsComponent }
+	{ path: '/event_details', component: EventDetailsComponent },
+	{ path: '/new_event', component: NewEventComponent }
 ])
 
 @Component({
 	selector: 'vt-app',
 	templateUrl: 'frontend/templates/app.html',
-	directives: [ROUTER_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_CARD_DIRECTIVES, LoginComponent],
-	providers: [ROUTER_PROVIDERS]
+	directives: [ROUTER_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_CARD_DIRECTIVES],
+	providers: [ROUTER_PROVIDERS, SalesforceUserService]
 })
 
 export class AppComponent implements OnInit {
-	stateService: StateService
-	constructor(private router: Router, stateService: StateService) {
-		this.stateService = stateService
-	}
+	constructor(private router: Router, private stateService: StateService, private salesforceUserService: SalesforceUserService) {}
 	ngOnInit() {
 		this.stateService.stateChanged.subscribe(
 			(state) => {
@@ -42,6 +42,14 @@ export class AppComponent implements OnInit {
 					this.router.navigate(['/event_details'])
 				}
 			}
+		)
+	}
+	goCreateEventOrLoginFirst() {
+		this.salesforceUserService.hasUserLoggedIn().subscribe(
+			// user has already logged in
+			data => this.router.navigate(['/new_event']),
+			// user has NOT logged in, now show login view
+			error => this.router.navigate(['/login'])
 		)
 	}
 }

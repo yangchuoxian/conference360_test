@@ -10,14 +10,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var button_1 = require('@angular2-material/button');
+var input_1 = require('@angular2-material/input');
+var progress_bar_1 = require('@angular2-material/progress-bar');
 var icon_1 = require('@angular2-material/icon');
-var router_1 = require('@angular/router');
+// custom service
+var salesforce_user_service_1 = require('../services/salesforce_user.service');
 var LoginComponent = (function () {
-    function LoginComponent() {
+    function LoginComponent(salesforceUserService) {
+        this.salesforceUserService = salesforceUserService;
         this.stateAnounced = new core_1.EventEmitter();
     }
-    LoginComponent.prototype.emitEvent = function () {
-        this.stateAnounced.emit('go to a new state');
+    LoginComponent.prototype.submitSalesforceUserLogin = function () {
+        var _this = this;
+        this.loginHintMessage = '';
+        this.isLoggingIn = true;
+        this.salesforceUserService.login(this.salesforceEmail, this.salesforcePassword).subscribe(function (data) {
+            _this.isLoggingIn = false;
+            _this.hasLoginSucceeded = true;
+            _this.loginHintMessage = 'Login Succeeded';
+        }, function (error) {
+            _this.isLoggingIn = false;
+            _this.hasLoginSucceeded = false;
+            _this.loginHintMessage = 'Login Failed';
+        });
     };
     __decorate([
         core_1.Output(), 
@@ -28,10 +43,10 @@ var LoginComponent = (function () {
             selector: 'login',
             templateUrl: 'frontend/templates/login.html',
             styleUrls: ['frontend/styles/styles.css'],
-            directives: [button_1.MD_BUTTON_DIRECTIVES, icon_1.MdIcon, router_1.ROUTER_DIRECTIVES],
-            providers: [icon_1.MdIconRegistry, router_1.ROUTER_PROVIDERS]
+            directives: [button_1.MD_BUTTON_DIRECTIVES, icon_1.MdIcon, input_1.MD_INPUT_DIRECTIVES, progress_bar_1.MD_PROGRESS_BAR_DIRECTIVES],
+            providers: [icon_1.MdIconRegistry, salesforce_user_service_1.SalesforceUserService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [salesforce_user_service_1.SalesforceUserService])
     ], LoginComponent);
     return LoginComponent;
 }());

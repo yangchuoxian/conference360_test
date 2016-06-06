@@ -1,1 +1,41 @@
-<button md-raised-button (click)="emitEvent()">Emit event</button>
+<br><br>
+<form (ngSubmit)="submitSalesforceUserLogin()">
+	<div class="container">
+		<!-- login hint message -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="alert" [ngClass]="{'alert-danger': !hasLoginSucceeded, 'alert-success': hasLoginSucceeded}" role="alert" *ngIf="loginHintMessage">
+					<strong>{{loginHintMessage}}</strong>
+				</div>
+			</div>
+		</div>
+		<!-- end of login hint message -->
+		<!-- login email input -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<md-input placeholder="Salesforce Email" class="full-width" required maxLength="50" [(ngModel)]="salesforceEmail" type="email"></md-input>	
+			</div>
+		</div>
+		<!-- end of login email input -->
+		<!-- login password input -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<md-input placeholder="Salesforce Password" class="full-width" required maxLength="50" [(ngModel)]="salesforcePassword"></md-input>	
+			</div>
+		</div>
+		<!-- end of login password input -->
+		<br>
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<md-progress-bar color="primary" *ngIf="isLoggingIn" color="accent" mode="indeterminate"></md-progress-bar>
+			</div>
+		</div>
+		<!-- login submit button -->
+		<div class="row" *ngIf="!isLoggingIn">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<button md-raised-button class="pull-right" color="primary" type="submit">Login</button>
+			</div>
+		</div>
+		<!-- end of login submit button -->
+	</div>
+</form>

@@ -14,7 +14,7 @@
 	<md-input type="number" class="full-width" [(ngModel)]="attendee.phone" placeholder="Your Phone Number" required #lastNameCharacterCountHint>
 	</md-input>
 	<md-progress-bar *ngIf="isRegisteringNewAttendee" color="accent" mode="indeterminate"></md-progress-bar>
-	<div class="alert" [ngClass]="{'alet-danger': hasRegistrationFailed, 'alert-success': hasRegistrationSucceeded}" role="alert" *ngIf="hasRegistrationFailed||hasRegistrationSucceeded">
+	<div class="alert" [ngClass]="{'alert-danger': hasRegistrationFailed, 'alert-success': hasRegistrationSucceeded}" role="alert" *ngIf="hasRegistrationFailed||hasRegistrationSucceeded">
 		<strong>{{registrationHintMessage}}</strong>
 	</div>
 	<br><br>

@@ -13,5 +13,7 @@ module.exports = {
 	// redis credentials
 	redisPass: 'jd8kasef0j!@koz*jgpNMuB&*auH1fnw^%hdksz7Jh164yYTHhn*kg361lkaizng7ohlHLIY9piBofhjvk',
 	// pagination constants
-	itemsPerPage: 20
+	itemsPerPage: 20,
+	// session password
+	sessionPass: 'jljlafnx*l1hlh1331pi',
 };
