@@ -115,6 +115,9 @@ var retrieveAccessTokenFromRemoteServer = function() {
 		username: constants.salesforceUsername,
 		password: constants.salesforcePassword
 	}).then(function(response) {
+
+		console.log(response);
+
 		var accessToken = JSON.parse(response).access_token;
 		client = redis.createClient();
 		client.auth(constants.redisPass);
@@ -127,14 +130,25 @@ var retrieveAccessTokenFromRemoteServer = function() {
 };
 var getAccessToken = function() {
 	// first try to get access token from redis database
+	console.log('1');
 	var client = redis.createClient();
+	console.log('2');
+
 	client.auth(constants.redisPass);
+	console.log('3');
+
 	client.get = promise.promisify(client.get);
+	console.log('4');
+
 	return client.get('access_token')
 	.then(function(reply) {
 		client.quit();
+		console.log('5');
+
 		if (!reply) {
 			// access token not exists in redis database, now get it from salesforce
+			console.log('6');
+
 			return retrieveAccessTokenFromRemoteServer();
 		} else {
 			// access token exists in redis database
