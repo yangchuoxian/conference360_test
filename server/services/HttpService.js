@@ -118,7 +118,7 @@ var oauthHttpPost = function(url, body) {
 };
 var retrieveAccessTokenFromRemoteServer = function() {
 	return httpPost(constants.salesforceOauthUrl, {}, {
-		grant_type: 'password',
+		"grant_type":"password",
 		client_id: constants.salesforceClientID,
 		client_secret: constants.salesforceClientSecret,
 		username: constants.salesforceUsername,
