@@ -1,0 +1,22 @@
+<form (ngSubmit)="registerAttendee()">
+	<md-input class="full-width" [(ngModel)]="attendee.company" maxLength="80" placeholder="Your Company" required #companyCharacterCountHint>
+		<md-hint align="end">{{companyCharacterCountHint.characterCount}} / 80</md-hint>
+	</md-input>
+	<md-input class="full-width" type="email" [(ngModel)]="attendee.email" maxLength="80" placeholder="Your Email" required #emailCharacterCountHint>
+		<md-hint align="end">{{emailCharacterCountHint.characterCount}} / 80</md-hint>
+	</md-input>
+	<md-input class="full-width" [(ngModel)]="attendee.first_name" maxLength="50" placeholder="Your First Name" required #firstNameCharacterCountHint>
+		<md-hint align="end">{{firstNameCharacterCountHint.characterCount}} / 50</md-hint>
+	</md-input>
+	<md-input class="full-width" [(ngModel)]="attendee.last_name" maxLength="50" placeholder="Your Last Name" required #lastNameCharacterCountHint>
+		<md-hint align="end">{{lastNameCharacterCountHint.characterCount}} / 50</md-hint>
+	</md-input>
+	<md-input type="number" class="full-width" [(ngModel)]="attendee.phone" placeholder="Your Phone Number" required #lastNameCharacterCountHint>
+	</md-input>
+	<md-progress-bar *ngIf="isRegisteringNewAttendee" color="accent" mode="indeterminate"></md-progress-bar>
+	<div class="alert" [ngClass]="{'alet-danger': hasRegistrationFailed, 'alert-success': hasRegistrationSucceeded}" role="alert" *ngIf="hasRegistrationFailed||hasRegistrationSucceeded">
+		<strong>{{registrationHintMessage}}</strong>
+	</div>
+	<br><br>
+	<button md-raised-button color="primary" *ngIf="!isRegisteringNewAttendee" class="pull-right">Register</button>
+</form>

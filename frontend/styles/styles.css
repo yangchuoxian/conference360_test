@@ -1,0 +1,20 @@
+.lesser-font {
+	font-size: 0.8em;
+	color: gray;
+}
+.margin-top-5 {
+	margin-top: 5pt;
+}
+.clickable {
+	cursor: pointer;
+}
+.selected-page-index {
+	background-color: white;
+	color: black;
+}
+.full-width {
+	width: 100%;
+}
+.selected-border-effect {
+	border: 1px solid #8DC63F;
+}

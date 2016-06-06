@@ -1,0 +1,8 @@
+<md-card class="clickable" (click)="showEventDetails()">
+	<div><img src="{{event.image_url}}" alt="Event Image" width="100%"></div>
+	<div>{{event.title}} ({{event.status}})</div>
+	<div class="lesser-font margin-top-5">{{startDateTimeString}} - {{endDateTimeString}}</div>
+	<br>
+	<div class="lesser-font margin-top-5">Total seats: <span class="pull-right">{{event.registration_limit}}</span></div>
+	<div class="lesser-font">Remaining seats: <span class="pull-right">{{event.remaining_seats}}</span></div>
+</md-card>

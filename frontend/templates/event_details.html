@@ -1,0 +1,49 @@
+<br>
+<br>
+<div class="container">
+	<!-- event title -->
+	<div class="row">
+		<div class="col-xs-12 pull-left">
+			<h2>{{event.title}}</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 lesser-font">{{startDateTimeString}} - {{endDateTimeString}}</div>
+		<div class="col-xs-12 col-sm-6 lesser-font"><span class="pull-right">{{event.registration_limit - event.remaining_seats}} / {{event.registration_limit}}</span></div>
+	</div>
+	<!-- end of event title -->
+	<!-- event image and description -->
+	<div class="row">
+		<div class="col-xs-12">
+			<md-card>
+				<div class="text-center"><img class="full-width" src="{{event.image_url}}" alt="Event Image"></div>
+				<br>
+				<div [innerHTML]="event.description"></div>
+			</md-card>
+		</div>
+	</div>
+	<!-- end of event image and description -->
+	<!-- event sessions -->
+	<hr>
+	<md-progress-bar *ngIf="isFetchingDataFromServer" color="accent" mode="indeterminate"></md-progress-bar>
+	<div class="row">
+		<div class="col-xs-12" *ngIf="sessions.length > 0">
+			<h4>Event Sessions</h4>
+		</div>
+	</div>
+	<div class="row margin-top-5">
+		<div class="col-xs-12 col-sm-6 col-md-4" *ngFor="let session of sessions">
+			<session-basic-info (sessionToggled)="toggleSessionSelection($event)" [session]="session"></session-basic-info>
+		</div>
+	</div>
+	<!-- end of event sessions -->
+	<!-- new attendee form -->
+	<br>
+	<div class="row" *ngIf="!isFetchingDataFromServer">
+		<div class="col-xs-12">
+			<new-attendee [selectedSessionIds]="selectedSessionIds" [eventId]="event.Id" class="pull-right"></new-attendee>	
+		</div>
+	</div>
+	<br>
+	<!-- end of new attendee form -->
+</div>

@@ -1,0 +1,7 @@
+<md-card class="clickable" [ngClass]="{'selected-border-effect':isSessionSelected}" (click)="notifyChangedSessionSelection()">
+	<div>{{session.title}} ({{session.status}})</div>
+	<div class="lesser-font margin-top-5">{{startDateTimeString}} - {{endDateTimeString}}</div>
+	<br>
+	<div class="lesser-font margin-top-5">Total seats: <span class="pull-right">{{session.registration_limit}}</span></div>
+	<div class="lesser-font">Remaining seats: <span class="pull-right">{{session.remaining_seats}}</span></div>
+</md-card>
