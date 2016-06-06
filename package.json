@@ -2,7 +2,7 @@
   "name": "conference360_test",
   "version": "1.0.0",
   "scripts": {
-    "start": "node server/app.js",
+    "start": "tsc && concurrently \"npm run tsc:w\" ",
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",

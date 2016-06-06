@@ -9,6 +9,8 @@ var httpGet = function(url, headers, body) {
 		headers: headers,
 		form: body
 	}).then(function(httpResponse, body) {
+		console.log(httpResponse.body);
+
 		if (httpResponse.statusCode == 200) {
 			return promise.resolve(httpResponse.body);
 		} else if (httpResponse.statusCode == 401) {
