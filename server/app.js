@@ -27,6 +27,6 @@ app.get('/get_sessions_for_event', sessionController.getSessionsForEvent);
 app.post('/register_user_for_event_and_sessions', attendeeController.registerUserForEventAndSessions);
 /******************************* End of Routes ******************************/
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
 	console.log('Conference360_test server app listening on port 3000!');
 });
