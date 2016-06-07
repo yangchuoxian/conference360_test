@@ -1,10 +1,11 @@
-Conference360_test README_
+Conference360_test
 The project folder contains 3 main parts
 * frontend ——— angular2 app folder
 * server ———— expressJS 4 app folder
 * salesforce ——- salesforce APEX source code(classes and triggers)
 
 ======================= Salesforce =======================
+
 Created SObjects/tables:
 * conference360_event
 * conference360_session
@@ -26,6 +27,7 @@ Added two APEX classes
 Apex trigger source code can be found under salesforce/triggers/ but didn’t get activated in Salesforce.com
 
 ========================= Express =========================
+
 The backend app utilizes MVC design pattern with some common tasks extracted as services. It uses express-session for user login, and redis database to save salesforce oauth access token.
 The folder structure of the backend ExpressJS app looks like this:
 * server
@@ -55,6 +57,7 @@ The folder structure of the backend ExpressJS app looks like this:
 		- get salesforce access token for a logged in salesforce user and save the token with the logged in salesforce user email in local reds database
 
 ================== Angular2/Angular2-material ==================
+
 The front-end app uses Angular2 and Angular2-material. Given that angular2-material is not yet production-ready, some external libraries are used here, to be specific:
 * bootstrap.css — Angular2-material grid-list cannot make responsive layout at the time, so bootstrap grid layout is used here for responsive layout to support multiple screen sizes. Only the stylesheet, no bootstrap.js, no jquery.js are imported.
 * Tinymce — a rich text/WYSIWYG editor, related angular2 component is implemented as well
