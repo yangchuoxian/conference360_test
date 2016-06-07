@@ -8,7 +8,7 @@ var constants = require('./config/constants.js');
 // use session to remember user login status
 app.use(session({
 	secret: constants.sessionPass, 
-	cookie: { maxAge: 600000 },
+	cookie: { maxAge: null },
 	resave: true,
 	saveUninitialized: false
 }));
@@ -33,6 +33,7 @@ app.use('/frontend', express.static(path.resolve(__dirname, '../frontend')));
 app.get('/', viewController.renderIndex);
 app.get('/get_events', eventController.getEvents);
 app.get('/get_event', eventController.getEventAndItsSessions);
+app.post('/create_new_event', eventController.createNewEvent);
 // Session related routes
 app.get('/get_sessions_for_event', sessionController.getSessionsForEvent);
 // Attendee related routes
@@ -40,6 +41,14 @@ app.post('/register_user_for_event_and_sessions', attendeeController.registerUse
 // Salesforce user related routes
 app.post('/submit_salesforce_user_login', salesforceUserController.submitLogin);
 app.get('/has_user_logged_in', salesforceUserController.hasUserLoggedIn);
+
+
+
+
+
+
+
+app.get('/test', eventController.test);
 /******************************* End of Routes ******************************/
 
 app.listen(process.env.PORT || 3000, function () {

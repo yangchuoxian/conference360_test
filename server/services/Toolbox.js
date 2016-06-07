@@ -137,7 +137,7 @@ var retrieveAccessTokenFromRemoteServer = function() {
 		password: constants.salesforcePassword
 	}).then(function(response) {
 		var accessToken = JSON.parse(response).access_token;
-		client = redis.createClient();
+		var client = redis.createClient();
 		client.auth(constants.redisPass);
 		client.set('access_token', accessToken);
 		client.quit();
@@ -165,6 +165,24 @@ var getAccessToken = function() {
 		return promise.reject('Get access token failed');
 	});
 };
+var getAccessTokenForLoggedInSalesforceUser = function(loggedSalesforceUser) {
+	if (!loggedSalesforceUser) {
+		return promise.reject('No user');
+	}
+	var client = redis.createClient();
+	client.auth(constants.redisPass);
+	client.get = promise.promisify(client.get);
+	return client.get(loggedSalesforceUser)
+	.then(function(reply) {
+		if (!reply) {
+			return promise.reject('No access token in local database');
+		} else {
+			return promise.resolve(reply);
+		}
+	}).catch(function(err) {
+		return promise.reject(err);
+	});
+};
 module.exports = {
 	httpGet: httpGet,
 	httpPostWithForm: httpPostWithForm,
@@ -172,5 +190,6 @@ module.exports = {
 	oauthHttpGet: oauthHttpGet,
 	oauthHttpPost: oauthHttpPost,
 	getAccessToken: getAccessToken,	
-	retrieveAccessTokenFromRemoteServer: retrieveAccessTokenFromRemoteServer
+	retrieveAccessTokenFromRemoteServer: retrieveAccessTokenFromRemoteServer,
+	getAccessTokenForLoggedInSalesforceUser: getAccessTokenForLoggedInSalesforceUser
 };

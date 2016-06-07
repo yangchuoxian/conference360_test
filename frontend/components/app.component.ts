@@ -26,6 +26,7 @@ import { constants } from '../config/constants'
 @Component({
 	selector: 'vt-app',
 	templateUrl: 'frontend/templates/app.html',
+	styleUrls: ['frontend/styles/styles.css'],
 	directives: [ROUTER_DIRECTIVES, MD_BUTTON_DIRECTIVES, MD_CARD_DIRECTIVES],
 	providers: [ROUTER_PROVIDERS, SalesforceUserService]
 })

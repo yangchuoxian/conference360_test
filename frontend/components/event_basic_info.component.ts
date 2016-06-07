@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 // angular2-material
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card'
+import { MD_GRID_LIST_DIRECTIVES } from '@angular2-material/grid-list'
 // custom models
 import { Event } from '../models/event.model'
 // custom services
@@ -13,7 +14,7 @@ import { constants } from '../config/constants'
 	selector: 'event-basic-info',
 	templateUrl: 'frontend/templates/event_basic_info.html',
 	styleUrls: ['frontend/styles/styles.css'],
-	directives: [MD_CARD_DIRECTIVES],
+	directives: [MD_CARD_DIRECTIVES, MD_GRID_LIST_DIRECTIVES],
 	providers: [Event, Toolbox]
 })
 

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 // angular2-material
 var card_1 = require('@angular2-material/card');
+var grid_list_1 = require('@angular2-material/grid-list');
 // custom models
 var event_model_1 = require('../models/event.model');
 // custom services
@@ -41,7 +42,7 @@ var EventBasicInfoComponent = (function () {
             selector: 'event-basic-info',
             templateUrl: 'frontend/templates/event_basic_info.html',
             styleUrls: ['frontend/styles/styles.css'],
-            directives: [card_1.MD_CARD_DIRECTIVES],
+            directives: [card_1.MD_CARD_DIRECTIVES, grid_list_1.MD_GRID_LIST_DIRECTIVES],
             providers: [event_model_1.Event, toolbox_service_1.Toolbox]
         }), 
         __metadata('design:paramtypes', [state_service_1.StateService, toolbox_service_1.Toolbox])

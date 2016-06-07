@@ -25,13 +25,15 @@ import { EventBasicInfoComponent } from './event_basic_info.component'
 export class EventListComponent implements OnInit {
 	private searchKeyword: string
 	private currentEventStatus: string
-	private events: Event[]
+	private events: Event[] = []
 	private errorMessage: string
 	private totalPages: number
+	private currentPage: number
 	private canShowPagination: boolean
 	private isFetchingDataFromServer: boolean
 	constructor(private eventService: EventService) {}
 	ngOnInit() {
+		this.currentPage = 1
 		this.searchKeyword = null
 		this.currentEventStatus = null
 		this.fetchEvents('/get_events')
@@ -52,6 +54,7 @@ export class EventListComponent implements OnInit {
 		this.fetchEvents('/get_events?keyword=' + this.searchKeyword)
 	}
 	changeCurrentPage(newPage: number) {
+		this.currentPage = newPage
 		if (this.searchKeyword) {
 			// get paginated search results
 			this.fetchEvents('/get_events?keyword=' + this.searchKeyword + '&page=' + newPage)

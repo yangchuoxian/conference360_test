@@ -26,7 +26,7 @@ trigger SessionRegisteredTrigger on conference360_session_attendee__c (after ins
     if (eventAttendeeRelationship != null) {
         event = [SELECT title__c, start__c FROM conference360_event__c WHERE Id =: eventAttendeeRelationship.event__c LIMIT 1];
     }
-    // send notify email of successful session registration
+    // send notify email of successful event/session(s) registration
     if (event != null) {
         // send email with registered event and sessions info to the new attendee
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();

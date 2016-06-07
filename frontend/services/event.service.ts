@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import { Event } from '../models/event.model'
 
@@ -10,6 +10,17 @@ export class EventService {
 		return this.http.get(url)
 						.map(this.extractEventData)
 						.catch(this.handleError)
+	}
+	createNewEvent(newEvent: Event): Observable<any> {
+		let body = JSON.stringify({event: newEvent})
+		let headers = new Headers({ 'Content-Type': 'application/json' })
+	    let options = new RequestOptions({ headers: headers })
+		return this.http.post('/create_new_event', body, options)
+						.map(this.extractCreateEventResponse)
+						.catch(this.handleError)
+	}
+	private extractCreateEventResponse(res: Response) {
+		return res || {}
 	}
 	private extractEventData(res: Response) {
 		var events: Event[] = []

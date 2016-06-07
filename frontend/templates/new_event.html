@@ -1,21 +1,103 @@
-<form>
+<form class="form-group" (ngSubmit)="createNewEvent()">
 	<div class="container">
+		<!-- event title input -->
 		<div class="row">
 			<div class="col-xs-12">
-				<md-input placeholder="Event Title" class="full-width" required maxLength="200"></md-input>
+				<md-input placeholder="Event Title" class="full-width" required maxLength="200" [(ngModel)]="event.title" #eventTitleHint>
+					<md-hint align="end">{{eventTitleHint.characterCount}} / 200</md-hint>
+				</md-input>
 			</div>
 		</div>
+		<!-- end of event title input -->
+		<br>
+		<!-- event image url input -->
+		<div class="row">
+			<div class="col-xs-12">
+				<md-input placeholder="Event Image url" class="full-width" required maxLength="200" [(ngModel)]="event.image_url" #eventImageUrl>
+					<md-hint align="end">{{eventImageUrl.characterCount}} / 200</md-hint>
+				</md-input>
+			</div>
+		</div>
+		<!-- end of event image url input -->
+		<!-- event start date input -->
 		<br>
 		<div class="row">
 			<div class="col-xs-12">
-				<md-input placeholder="Event Image url" class="full-width" required maxLength="200"></md-input>
+				<label>Start Date</label>
+				<datepicker [(ngModel)]="event.start" placeholder="Event Start Date" required></datepicker>
 			</div>
 		</div>
+		<!-- end of event start date input -->
+		<!-- event end date input -->
 		<br>
 		<div class="row">
 			<div class="col-xs-12">
-				<editor placeholder="Event Description"></editor>
+				<label>End Date</label>
+				<datepicker [(ngModel)]="event.end" placeholder="Event Start Date" required></datepicker>
 			</div>
 		</div>
+		<!-- end of event end date input -->
+		<!-- event status -->
+		<br>
+		<div class="row">
+			<div class="col-xs-12">
+				<label>Status</label>
+				<select class="form-control" [(ngModel)]="event.status" required>
+					<option value="Draft">Draft</option>
+					<option value="Open">Open</option>
+					<option value="Sold Out">Sold Out</option>
+					<option value="Closed">Closed</option>
+				</select>
+			</div>
+		</div>
+		<!-- end of event status -->
+		<!-- event registration limit -->
+		<br>
+		<div class="row">
+			<div class="col-xs-12">
+				<md-input type="number" placeholder="Event Registration Limit" class="full-width" required [(ngModel)]="event.registration_limit"></md-input>
+			</div>
+		</div>
+		<!-- end of event registration limit -->
+		<!-- event remaining seats -->
+		<br>
+		<div class="row">
+			<div class="col-xs-12">
+				<md-input type="number" placeholder="Event remaining seats" class="full-width" required [(ngModel)]="event.remaining_seats"></md-input>
+			</div>
+		</div>
+		<!-- end of event remaining seats -->
+		<!-- event description input -->
+		<br>
+		<div class="row">
+			<div class="col-xs-12">
+				<editor placeholder="Event Description" [mceContent]="event.description" (contentChanged)="descriptionChanged($event)"></editor>
+			</div>
+		</div>
+		<!-- end of event description input -->
+		<!-- progress bar if event is creating -->
+		<div class="row" *ngIf="isCreatingNewEvent">
+			<br>
+			<div class="col-xs-12">
+				<md-progress-bar color="accent" mode="indeterminate"></md-progress-bar>
+			</div>
+		</div>
+		<!-- hint message for event creation succeede/failure -->
+		<div class="row" *ngIf="creationHintMessage">
+			<br>
+			<div class="col-xs-12">
+				<div class="alert" [ngClass]="{'alert-danger': hasCreationFailed, 'alert-success': !hasCreationFailed}" role="alert">
+					<strong>{{creationHintMessage}}</strong>
+				</div>
+			</div>
+		</div>
+		<!-- submit button -->
+		<br>
+		<div class="row">
+			<div class="col-xs-12">
+				<button class="pull-right" md-raised-button color="primary">Create Event</button>
+			</div>
+		</div>
+		<!-- end of submit button -->
 	</div>	
 </form>

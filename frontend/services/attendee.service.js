@@ -28,8 +28,7 @@ var AttendeeService = (function () {
             .catch(this.handleError);
     };
     AttendeeService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body || {};
+        return res || {};
     };
     AttendeeService.prototype.handleError = function (error) {
         var body = JSON.parse(error._body);

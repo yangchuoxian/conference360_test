@@ -3,6 +3,7 @@ var constants = require('../config/constants.js');
 module.exports = {
 	fetchEventsFromBulkResponse: function(response) {
 		response = JSON.parse(response);
+		response = JSON.parse(response);
 		var totalSize = response.totalSize;
 		var events = [];
 		for (var i = 0; i < response.records.length; i ++) {

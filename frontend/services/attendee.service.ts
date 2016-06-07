@@ -19,8 +19,7 @@ export class AttendeeService {
 						.catch(this.handleError)
 	}
 	private extractData(res: Response) {
-		let body = res.json()
-		return body || {}
+		return res || {}
 	}
 	private handleError(error: any) {
 		let body = JSON.parse(error._body)

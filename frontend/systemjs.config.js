@@ -9,7 +9,9 @@
 		'@angular':                   'node_modules/@angular',
 		'@angular2-material': 		  'node_modules/@angular2-material',
 		'angular2-in-memory-web-api': 'node_modules/angular2-in-memory-web-api',
-		'rxjs':                       'node_modules/rxjs'
+		'rxjs':                       'node_modules/rxjs',
+		// manually added libraries
+		'moment': 					  'node_modules/moment',
 	};
 	// packages tells the System loader how to load when no filename and/or no extension
 	var packages = {
@@ -30,7 +32,8 @@
 		'@angular2-material/sidenav':  			{ main: 'sidenav.js', defaultExtension: 'js' },
 		'@angular2-material/slide-toggle':  	{ main: 'slide-toggle.js', defaultExtension: 'js' },
 		'@angular2-material/tabs':  			{ main: 'tabs.js', defaultExtension: 'js' },
-		'@angular2-material/toolbar':  			{ main: 'toolbar.js', defaultExtension: 'js' }
+		'@angular2-material/toolbar':  			{ main: 'toolbar.js', defaultExtension: 'js' },
+		'moment': 								{ main: 'moment.js', defaultExtension: 'js'}
 	};
 	var ngPackageNames = [
 		'common',

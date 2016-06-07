@@ -1,5 +1,5 @@
 var constants = require('../config/constants.js');
-var httpService = require('../services/HttpService.js');
+var toolbox = require('../services/Toolbox.js');
 var eventService = require('../services/EventService.js');
 var promise = require('bluebird');
 var redis = require('redis');
@@ -9,7 +9,7 @@ module.exports = {
 		var salesforceEmail	= req.body.email;
 		var password = req.body.password;
 
-		return httpService.httpPostWithForm(constants.salesforceOauthUrl, {}, {
+		return toolbox.httpPostWithForm(constants.salesforceOauthUrl, {}, {
 			grant_type: "password",
 			client_id: constants.salesforceClientID,
 			client_secret: constants.salesforceClientSecret,

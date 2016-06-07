@@ -1,5 +1,5 @@
 var constants = require('../config/constants.js');
-var httpService = require('../services/HttpService.js');
+var toolbox = require('../services/Toolbox.js');
 var eventService = require('../services/EventService.js');
 var promise = require('bluebird');
 
@@ -11,26 +11,18 @@ module.exports = {
 		if (!currentPage) {
 			currentPage = 1;
 		}
-		var baseQueryString = 'SELECT id,title__c,status__c,start__c,end__c,registration_limit__c,remaining_seats__c,description__c,image_url__c from conference360_event__c';
-		// query with specific criteria
-		var whereClauseString = '';
-		// order the query results by start datetime
-		var orderByString = ' ORDER BY start__c ASC';
-		// get paginated query results
-		var paginationString = ' LIMIT ' + constants.itemsPerPage + ' OFFSET ' + (currentPage - 1) * constants.itemsPerPage;
-		var queryString = '';
+		var url = constants.salesforceGetEventsUrl;
 		if (keyword) {
 			// searching events
-			whereClauseString = " WHERE title__c LIKE '%" + keyword + "%' AND status__c != 'Draft'";
+			url += '?keyword=' + keyword + '&page=' + currentPage + '&itemsPerPage=' + constants.itemsPerPage;
 		} else if (eventStatus) {
 			// retrieving events based on event status
-			whereClauseString = " WHERE status__c = '" + eventStatus + "'";
+			url += '?status=' + eventStatus + '&page=' + currentPage + '&itemsPerPage=' + constants.itemsPerPage;
 		} else {
-			whereClauseString = " WHERE status__c != 'Draft'";
+			url += '?page=' + currentPage + '&itemsPerPage=' + constants.itemsPerPage;
 		}
-		queryString = baseQueryString + whereClauseString + orderByString + paginationString;
 		// retrieving events without any specific criteria	
-		return httpService.oauthHttpGet(constants.salesforceQueryUrl + encodeURIComponent(queryString))
+		return toolbox.oauthHttpGet(url)
 		.then(function(response) {
 			var fetchedData = eventService.fetchEventsFromBulkResponse(response);
 			return res.send(fetchedData);
@@ -42,10 +34,50 @@ module.exports = {
 	getEventAndItsSessions: function(req, res) {
 		var eventID = req.query.id;
 		var queryString = "SELECT title__c,status__c,start__c,end__c,registration_limit__c,remaining_seats__c,description__c, (SELECT title__c,status__c,start__c,end__c,registration_limit__c,remaining_seats__c from conference360_session__r) from conference360_event__c WHERE Id='" + eventID + "'";
-		return httpService.oauthHttpGet(constants.salesforceQueryUrl + encodeURIComponent(queryString))
+		return toolbox.oauthHttpGet(constants.salesforceQueryUrl + encodeURIComponent(queryString))
 		.then(function(response) {
 			var fetchedData = eventService.fetchEventsFromBulkResponse(response);
 			return res.send(fetchedData);
+		}).catch(function(err) {
+			return res.status(500).send(err);
+		});
+	},
+	createNewEvent: function(req, res) {
+		var event = req.body.event;
+		var newEvent = {
+			title__c: event.title,
+			status__c: event.status,
+			start__c: event.start,
+			end__c: event.end,
+			image_url__c: event.image_url,
+			registration_limit__c: event.registration_limit,
+			remaining_seats__c: event.remaining_seats,
+			description__c: event.description
+		};
+		var loggedSalesforceUser = req.session.loggedInSalesforceEmail;
+		if (!loggedSalesforceUser) {
+			return res.status(403).send('User not logged in');
+		}
+		return toolbox.getAccessTokenForLoggedInSalesforceUser(loggedSalesforceUser)
+		.then(function(accessToken) {
+			return toolbox.httpPostWithJson(constants.salesforceCreateEventUrl, {'Authorization': 'Bearer ' + accessToken}, newEvent);
+		}).then(function(response) {
+			return res.send('ok');
+		}).catch(function(err) {
+			return res.status(403).send(err);
+		});
+	},
+	test: function(req, res) {
+		return toolbox.oauthHttpPost(constants.salesforceRegisterAttendeeUrl, {
+			company: 'someCompany',
+			email: 'yangchuoxian.appdev@gmail.com',
+			first_name: 'cx',
+			last_name: 'y',
+			phone: '18780803115',
+			eventId: 'Google Angular IO',
+			sessionIds: ['whatsoever']
+		}).then(function(response) {
+			return res.send(response);
 		}).catch(function(err) {
 			return res.status(500).send(err);
 		});

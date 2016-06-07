@@ -14,7 +14,6 @@ var core_1 = require('@angular/core');
 var button_1 = require('@angular2-material/button');
 var PaginationComponent = (function () {
     function PaginationComponent() {
-        this.currentPage = 1;
         this.currentPageChanged = new core_1.EventEmitter();
     }
     PaginationComponent.prototype.ngOnInit = function () {
@@ -47,6 +46,10 @@ var PaginationComponent = (function () {
             this.currentPageChanged.emit(this.currentPage);
         }
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Number)
+    ], PaginationComponent.prototype, "currentPage", void 0);
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Number)

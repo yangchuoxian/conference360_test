@@ -1,6 +1,9 @@
 module.exports = {
 	// salesforce urls
+	salesforceGetEventsUrl: 'https://ap2.salesforce.com/services/apexrest/conference360/get_events',
+	salesforceRegisterAttendeeUrl: 'https://ap2.salesforce.com/services/apexrest/conference360/register_attendee',
 	salesforceCreateAttendeeUrl: 'https://ap2.salesforce.com/services/data/v36.0/sobjects/conference360_attendee__c/',
+	salesforceCreateEventUrl: 'https://ap2.salesforce.com/services/data/v36.0/sobjects/conference360_event__c/',
 	salesforceCreateEventAndAttendeeRelationUrl: 'https://ap2.salesforce.com/services/data/v36.0/sobjects/conference360_event_attendee__c/',
 	salesforceCreateMultipleSessionsAndAttendeeRelationUrl: 'https://ap2.salesforce.com/services/data/v36.0/composite/tree/conference360_session_attendee__c/',
 	salesforceQueryUrl: 'https://ap2.salesforce.com/services/data/v36.0/query/?q=',

@@ -21,6 +21,17 @@ var EventService = (function () {
             .map(this.extractEventData)
             .catch(this.handleError);
     };
+    EventService.prototype.createNewEvent = function (newEvent) {
+        var body = JSON.stringify({ event: newEvent });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.post('/create_new_event', body, options)
+            .map(this.extractCreateEventResponse)
+            .catch(this.handleError);
+    };
+    EventService.prototype.extractCreateEventResponse = function (res) {
+        return res || {};
+    };
     EventService.prototype.extractEventData = function (res) {
         var events = [];
         var body = res.json();

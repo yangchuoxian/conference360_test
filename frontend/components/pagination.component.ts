@@ -11,7 +11,7 @@ import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button'
 })
 
 export class PaginationComponent implements OnInit {
-	private currentPage: number = 1
+	@Input() currentPage: number
 	private showingPageIndexes: number[]
 	@Input() totalPages: number
 	@Output() currentPageChanged = new EventEmitter<number>()

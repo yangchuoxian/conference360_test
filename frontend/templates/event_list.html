@@ -5,30 +5,42 @@
 	<!-- search and event status filter criteria -->
 	<div class="row">
 		<div class="col-md-4 col-xs-12 col-sm-6">
-			<md-radio-group [(ngModel)]="currentEventStatus">
+			<md-radio-group [(ngModel)]="currentEventStatus" class="full-width">
 				<md-radio-button value="open" (click)="getEventsWithStatus('open')">Open </md-radio-button>
 				<md-radio-button value="soldout" (click)="getEventsWithStatus('soldout')">Sold Out </md-radio-button>
 				<md-radio-button value="closed" (click)="getEventsWithStatus('closed')">Closed </md-radio-button>
 			</md-radio-group>
 		</div>
-		<div class="col-md-4 col-md-offset-4 col-sm-6 col-xs-12 pull-right">
-			<md-input [(ngModel)]="searchKeyword"></md-input>
-			<button md-button (click)="searchEvents()">Search</button>		
+		<div class="col-md-4 col-md-offset-4 col-sm-6 col-xs-12">
+			<div class="pull-right">
+				<md-input [(ngModel)]="searchKeyword"></md-input>
+				<span md-icon-button (click)="searchEvents()">
+					<md-icon class="md-24">search</md-icon>
+				</span>
+			</div>
 		</div>
 	</div>
 	<!-- end of search and event status filter criteria -->
+	<!-- no event hint -->
+	<div class="row" *ngIf="events.length == 0 && !isFetchingDataFromServer">
+		<div class="col-xm-12">
+			<div class="text-center background-hint">404</div>	
+			<div class="text-center background-hint">No Such Events.</div>	
+		</div>
+	</div>
+	<!-- end of no event hint -->
 	<!-- list of events -->
-	<div class="row">
+	<div class="row" *ngIf="events.length > 0">
 		<div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let event of events">
 			<event-basic-info [event]="event"></event-basic-info>	
 		</div>
 	</div>
 	<!-- end of list of events -->
 	<!-- pagination -->
-	<hr>
-	<div class="row">
+	<br>
+	<div class="row" *ngIf="canShowPagination">
 		<div class="col-xs-12 text-center">
-			<pagination *ngIf="canShowPagination" [totalPages]="totalPages" (currentPageChanged)="changeCurrentPage($event)"></pagination>
+			<pagination [totalPages]="totalPages" [currentPage]="currentPage" (currentPageChanged)="changeCurrentPage($event)"></pagination>
 		</div>
 	</div>
 	<!-- end of pagination -->

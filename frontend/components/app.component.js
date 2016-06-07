@@ -63,6 +63,7 @@ var AppComponent = (function () {
         core_1.Component({
             selector: 'vt-app',
             templateUrl: 'frontend/templates/app.html',
+            styleUrls: ['frontend/styles/styles.css'],
             directives: [router_1.ROUTER_DIRECTIVES, button_1.MD_BUTTON_DIRECTIVES, card_1.MD_CARD_DIRECTIVES],
             providers: [router_1.ROUTER_PROVIDERS, salesforce_user_service_1.SalesforceUserService]
         }), 

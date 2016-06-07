@@ -25,8 +25,10 @@ var event_basic_info_component_1 = require('./event_basic_info.component');
 var EventListComponent = (function () {
     function EventListComponent(eventService) {
         this.eventService = eventService;
+        this.events = [];
     }
     EventListComponent.prototype.ngOnInit = function () {
+        this.currentPage = 1;
         this.searchKeyword = null;
         this.currentEventStatus = null;
         this.fetchEvents('/get_events');
@@ -46,6 +48,7 @@ var EventListComponent = (function () {
         this.fetchEvents('/get_events?keyword=' + this.searchKeyword);
     };
     EventListComponent.prototype.changeCurrentPage = function (newPage) {
+        this.currentPage = newPage;
         if (this.searchKeyword) {
             // get paginated search results
             this.fetchEvents('/get_events?keyword=' + this.searchKeyword + '&page=' + newPage);

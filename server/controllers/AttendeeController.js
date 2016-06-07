@@ -1,5 +1,5 @@
 var constants = require('../config/constants.js');
-var httpService = require('../services/HttpService.js');
+var toolbox = require('../services/Toolbox.js');
 var promise = require('bluebird');
 
 module.exports = {
@@ -13,38 +13,18 @@ module.exports = {
 			last_name__c: req.body.attendee.last_name,
 			phone__c: req.body.attendee.phone	
 		};
-		var newAttendeeId = '';
-		// create new attendee
-		return httpService.oauthHttpPost(constants.salesforceCreateAttendeeUrl, newAttendee)
-		.then(function(response) {
-			// now register the new created attendee to the event
-			newAttendeeId = response.id;
-			return httpService.oauthHttpPost(constants.salesforceCreateEventAndAttendeeRelationUrl, {
-				attendee__c: newAttendeeId,
-				event__c: eventId
-			});
-		}).then(function(response) {
-			if (sessionIds.length > 0) {
-				// the user has selected one or more session to register as well, now register the new created attendee to the selected sessions
-				var selectedSessionsForAttendeeRecords = [];
-				for (var i = 0; i < sessionIds.length; i ++) {
-					selectedSessionsForAttendeeRecords.push({
-						attributes: {
-							type: 'conference360_session_attendee__c',
-							referenceId: 'ref' + i
-						},
-						attendee__c: newAttendeeId,
-						session__c: sessionIds[i]
-					});
-				}
-				return httpService.oauthHttpPost(constants.salesforceCreateMultipleSessionsAndAttendeeRelationUrl, {records: selectedSessionsForAttendeeRecords});
-			} else {
-				return promise.resolve(response);
-			}
+		return toolbox.oauthHttpPost(constants.salesforceRegisterAttendeeUrl, {
+			company: req.body.attendee.company,
+			email: req.body.attendee.email,
+			first_name: req.body.attendee.first_name,
+			last_name: req.body.attendee.last_name,
+			phone: req.body.attendee.phone,
+			eventId: req.body.eventId,
+			sessionIds: req.body.sessionIds
 		}).then(function(response) {
 			return res.send(response);
 		}).catch(function(err) {
 			return res.status(500).send(err);
-		});	
+		});
 	},
 };
