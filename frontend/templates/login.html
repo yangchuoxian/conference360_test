@@ -1,10 +1,15 @@
 <br><br>
 <form (ngSubmit)="submitSalesforceUserLogin()">
 	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<div class="alert alert-warning no-border-radius">Please login as a Salesforce user first.</div>	
+			</div>
+		</div>
 		<!-- login hint message -->
 		<div class="row">
 			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-				<div class="alert" [ngClass]="{'alert-danger': !hasLoginSucceeded, 'alert-success': hasLoginSucceeded}" role="alert" *ngIf="loginHintMessage">
+				<div class="alert no-border-radius" [ngClass]="{'alert-danger': !hasLoginSucceeded, 'alert-success': hasLoginSucceeded}" role="alert" *ngIf="loginHintMessage">
 					<strong>{{loginHintMessage}}</strong>
 				</div>
 			</div>
