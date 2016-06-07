@@ -1,4 +1,3 @@
-Conference360_test
 The project folder contains 3 main parts
 * frontend ——— angular2 app folder
 * server ———— expressJS 4 app folder
@@ -12,6 +11,7 @@ Created SObjects/tables:
 * conference360_attendee 
 * conference360_event_attendee  (many-to-many relationship between events and attendees)
 * conference360_session_attendee (many-to-many relationship between sessions and attendees)
+
 Added two APEX classes
 * RegisterAttendeeRestResource — Serves as a custom REST API for attendee registrations. It
 	* first accepts the following as http POST parameters:
@@ -24,11 +24,14 @@ Added two APEX classes
 	* events sorted by start date and the number of total events
 	* events with title containing user designated search keyword sorted by start date and the number of events meeting this search condition
 	* events with specific status sorted by start date and the number of events meeting this status condition
+
 Apex trigger source code can be found under salesforce/triggers/ but didn’t get activated in Salesforce.com
+
 
 ========================= Express =========================
 
 The backend app utilizes MVC design pattern with some common tasks extracted as services. It uses express-session for user login, and redis database to save salesforce oauth access token.
+
 The folder structure of the backend ExpressJS app looks like this:
 * server
 	* app.js - the main node.js file, all routes reside here
@@ -62,6 +65,7 @@ The front-end app uses Angular2 and Angular2-material. Given that angular2-mater
 * bootstrap.css — Angular2-material grid-list cannot make responsive layout at the time, so bootstrap grid layout is used here for responsive layout to support multiple screen sizes. Only the stylesheet, no bootstrap.js, no jquery.js are imported.
 * Tinymce — a rich text/WYSIWYG editor, related angular2 component is implemented as well
 * webpack — systemjs in Angular2 is replaced by webpack to reduce the number of http requests when loading the page. The generated minified bundle.js file resides in dist/bundle.js
+
 The front-end app folder structure looks like this:
 * index.html — the entry html view
 * main.ts — the bootstrap file for Angular2
