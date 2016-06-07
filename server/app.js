@@ -9,8 +9,8 @@ var constants = require('./config/constants.js');
 app.use(session({
 	secret: constants.sessionPass, 
 	cookie: { maxAge: 600000 },
-	resave: false,
-	saveUninitialized: true
+	resave: true,
+	saveUninitialized: false
 }));
 
 //Here we are configuring express to use body-parser as middle-ware.

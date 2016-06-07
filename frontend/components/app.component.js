@@ -17,7 +17,6 @@ var card_1 = require('@angular2-material/card');
 // custom components
 var event_list_component_1 = require('./event_list.component');
 var login_component_1 = require('./login.component');
-var editor_component_1 = require('./editor.component');
 var event_details_component_1 = require('./event_details.component');
 var new_event_component_1 = require('./new_event.component');
 // custom services
@@ -37,6 +36,9 @@ var AppComponent = (function () {
             if (state == constants_1.constants.eventDetailsState) {
                 _this.router.navigate(['/event_details']);
             }
+            else if (state == constants_1.constants.newEventState) {
+                _this.router.navigate(['/new_event']);
+            }
         });
     };
     AppComponent.prototype.goCreateEventOrLoginFirst = function () {
@@ -44,14 +46,16 @@ var AppComponent = (function () {
         this.salesforceUserService.hasUserLoggedIn().subscribe(
         // user has already logged in
         function (data) { return _this.router.navigate(['/new_event']); }, 
-        // user has NOT logged in, now show login view
-        function (error) { return _this.router.navigate(['/login']); });
+        // user has NOT logged in, remember which state the router should go to after successful login and show login view
+        function (error) {
+            _this.stateService.afterLoginState = constants_1.constants.newEventState;
+            _this.router.navigate(['/login']);
+        });
     };
     AppComponent = __decorate([
         router_1.Routes([
             { path: '/', component: event_list_component_1.EventListComponent },
             { path: '/login', component: login_component_1.LoginComponent },
-            { path: '/editor', component: editor_component_1.EditorComponent },
             { path: '/events', component: event_list_component_1.EventListComponent },
             { path: '/event_details', component: event_details_component_1.EventDetailsComponent },
             { path: '/new_event', component: new_event_component_1.NewEventComponent }

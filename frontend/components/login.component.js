@@ -15,11 +15,13 @@ var progress_bar_1 = require('@angular2-material/progress-bar');
 var icon_1 = require('@angular2-material/icon');
 // custom service
 var salesforce_user_service_1 = require('../services/salesforce_user.service');
+var state_service_1 = require('../services/state.service');
 var LoginComponent = (function () {
-    function LoginComponent(salesforceUserService) {
+    function LoginComponent(salesforceUserService, stateService) {
         this.salesforceUserService = salesforceUserService;
-        this.stateAnounced = new core_1.EventEmitter();
+        this.stateService = stateService;
     }
+    LoginComponent.prototype.ngOnInit = function () { };
     LoginComponent.prototype.submitSalesforceUserLogin = function () {
         var _this = this;
         this.loginHintMessage = '';
@@ -28,16 +30,14 @@ var LoginComponent = (function () {
             _this.isLoggingIn = false;
             _this.hasLoginSucceeded = true;
             _this.loginHintMessage = 'Login Succeeded';
+            // while user successfully logged in, the router should redirect the user to where the user initially asked for
+            _this.stateService.setState(_this.stateService.afterLoginState);
         }, function (error) {
             _this.isLoggingIn = false;
             _this.hasLoginSucceeded = false;
             _this.loginHintMessage = 'Login Failed';
         });
     };
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], LoginComponent.prototype, "stateAnounced", void 0);
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'login',
@@ -46,7 +46,7 @@ var LoginComponent = (function () {
             directives: [button_1.MD_BUTTON_DIRECTIVES, icon_1.MdIcon, input_1.MD_INPUT_DIRECTIVES, progress_bar_1.MD_PROGRESS_BAR_DIRECTIVES],
             providers: [icon_1.MdIconRegistry, salesforce_user_service_1.SalesforceUserService]
         }), 
-        __metadata('design:paramtypes', [salesforce_user_service_1.SalesforceUserService])
+        __metadata('design:paramtypes', [salesforce_user_service_1.SalesforceUserService, state_service_1.StateService])
     ], LoginComponent);
     return LoginComponent;
 }());

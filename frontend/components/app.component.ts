@@ -7,7 +7,6 @@ import { MD_CARD_DIRECTIVES } from '@angular2-material/card'
 // custom components
 import { EventListComponent } from './event_list.component'
 import { LoginComponent } from './login.component'
-import { EditorComponent } from './editor.component'
 import { EventDetailsComponent } from './event_details.component'
 import { NewEventComponent } from './new_event.component'
 // custom services
@@ -19,8 +18,6 @@ import { constants } from '../config/constants'
 @Routes([
 	{ path: '/', component: EventListComponent },
 	{ path: '/login', component: LoginComponent },
-	{ path: '/editor', component: EditorComponent },
-
 	{ path: '/events', component: EventListComponent },
 	{ path: '/event_details', component: EventDetailsComponent },
 	{ path: '/new_event', component: NewEventComponent }
@@ -40,6 +37,8 @@ export class AppComponent implements OnInit {
 			(state) => {
 				if (state == constants.eventDetailsState) {
 					this.router.navigate(['/event_details'])
+				} else if (state == constants.newEventState) {
+					this.router.navigate(['/new_event'])
 				}
 			}
 		)
@@ -48,8 +47,11 @@ export class AppComponent implements OnInit {
 		this.salesforceUserService.hasUserLoggedIn().subscribe(
 			// user has already logged in
 			data => this.router.navigate(['/new_event']),
-			// user has NOT logged in, now show login view
-			error => this.router.navigate(['/login'])
+			// user has NOT logged in, remember which state the router should go to after successful login and show login view
+			error => {
+				this.stateService.afterLoginState = constants.newEventState
+				this.router.navigate(['/login'])
+			}
 		)
 	}
 }

@@ -1,3 +1,4 @@
 export const constants = {
-	eventDetailsState: 'event details'
+	eventDetailsState: 'event details',
+	newEventState: 'new event',
 }
