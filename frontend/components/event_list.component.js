@@ -37,7 +37,7 @@ var EventListComponent = (function () {
         if (this.currentEventStatus != status) {
             this.currentEventStatus = status;
             this.searchKeyword = null;
-            this.fetchEvents(encodeURIComponent('/get_events?status=' + status));
+            this.fetchEvents('/get_events?status=' + status);
         }
     };
     EventListComponent.prototype.searchEvents = function () {
