@@ -7,10 +7,15 @@
 .no-bottom-margin {
 	margin-bottom: 0px;
 }
-.background-hint {
+.huge-font {
+	font-size: 10em;
+}
+.large-font {
 	font-size: 5em;
+}
+.background-hint {
 	font-weight: bold;
-	color: gray;
+	color: #e1e1e1;
 }
 .lesser-font {
 	font-size: 0.8em;
