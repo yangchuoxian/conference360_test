@@ -3,6 +3,9 @@ var request = promise.promisifyAll(require('request'));
 var redis = require('redis');
 var constants = require('../config/constants.js');
 
+/**
+ * general http get method
+ */
 var httpGet = function(url, headers, body) {
 	return request.getAsync({
 		url: url,
@@ -26,6 +29,9 @@ var httpGet = function(url, headers, body) {
 		return promise.reject(err);	
 	});
 };
+/**
+ * http post method with form data
+ */
 var httpPostWithForm = function(url, headers, body) {
 	return request.postAsync({
 		url: url,
@@ -49,6 +55,9 @@ var httpPostWithForm = function(url, headers, body) {
 		return promise.reject(err);	
 	});
 };
+/**
+ * http post method with json data
+ */
 var httpPostWithJson = function(url, headers, body) {
 	return request.postAsync({
 		url: url,
@@ -72,6 +81,13 @@ var httpPostWithJson = function(url, headers, body) {
 		return promise.reject(err);	
 	});
 };
+/**
+ * http get function with access token
+ * this function 
+ * 1. first gets the access token either from local redis database or from salesforce.com, 
+ * 2. then sends the http request,
+ * 3. depending on whether the access token is expired, this function may get a new access token from salesforce.com and send the same http request again
+ */
 var oauthHttpGet = function(url) {
 	return getAccessToken()
 	.then(function(accessToken) {
@@ -100,6 +116,13 @@ var oauthHttpGet = function(url) {
 		}
 	});
 };
+/**
+ * http post function with access token
+ * this function 
+ * 1. first gets the access token either from local redis database or from salesforce.com, 
+ * 2. then sends the http request,
+ * 3. depending on whether the access token is expired, this function may get a new access token from salesforce.com and send the same http request again
+ */
 var oauthHttpPost = function(url, body) {
 	return getAccessToken()
 	.then(function(accessToken) {
@@ -128,6 +151,9 @@ var oauthHttpPost = function(url, body) {
 		}
 	});
 };
+/**
+ * Retrieve the oauth access token with developer salesforce user credentials and save it in local redis database for later use
+ */
 var retrieveAccessTokenFromRemoteServer = function() {
 	return httpPostWithForm(constants.salesforceOauthUrl, {}, {
 		grant_type: "password",
@@ -146,6 +172,9 @@ var retrieveAccessTokenFromRemoteServer = function() {
 		return promise.reject('Retrieve access token failed');
 	});
 };
+/**
+ * Get the access token from local redis database, if it does not exist, then retrieve it from remote salesforce server
+ */
 var getAccessToken = function() {
 	// first try to get access token from redis database
 	var client = redis.createClient();
@@ -165,6 +194,9 @@ var getAccessToken = function() {
 		return promise.reject('Get access token failed');
 	});
 };
+/**
+ * Retrieve the access token for a logged in salesforce user from remote salesforce server and save the retrieve token with the logged in user email in redis database for later use
+ */
 var getAccessTokenForLoggedInSalesforceUser = function(loggedSalesforceUser) {
 	if (!loggedSalesforceUser) {
 		return promise.reject('No user');
