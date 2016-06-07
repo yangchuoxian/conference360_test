@@ -31,7 +31,6 @@
     "@angular2-material/slide-toggle": "^2.0.0-alpha.5-2",
     "@angular2-material/tabs": "^2.0.0-alpha.5-2",
     "@angular2-material/toolbar": "^2.0.0-alpha.5-2",
-    "MyDatePicker": "github:kekeh/mydatepicker",
     "angular2-in-memory-web-api": "0.0.11",
     "bluebird": "^3.4.0",
     "body-parser": "^1.15.1",
