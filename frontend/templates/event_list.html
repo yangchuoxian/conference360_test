@@ -31,7 +31,7 @@
 	<!-- end of no event hint -->
 	<!-- list of events -->
 	<div class="row" *ngIf="events.length > 0">
-		<div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let event of events">
+		<div class="col-md-4 col-sm-6 col-xs-12 margin-bottom-10" *ngFor="let event of events">
 			<event-basic-info [event]="event"></event-basic-info>	
 		</div>
 	</div>

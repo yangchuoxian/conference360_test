@@ -1,6 +1,9 @@
 .no-border-radius {
 	border-radius: 0px !important;
 }
+.margin-bottom-10 {
+	margin-bottom: 10px;
+}
 .no-bottom-margin {
 	margin-bottom: 0px;
 }
