@@ -26,6 +26,8 @@ var salesforceUserController = require('./controllers/SalesforceUserController.j
 /********************************** Static files **********************************/
 app.use('/node_modules', express.static(path.resolve(__dirname, '../node_modules')));
 app.use('/frontend', express.static(path.resolve(__dirname, '../frontend')));
+app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
+
 /****************************** End of Static files *******************************/
 
 /********************************** Routes **********************************/

@@ -2,11 +2,8 @@
   "name": "conference360_test",
   "version": "1.0.0",
   "scripts": {
-    "start": "tsc && concurrently \"npm run tsc:w\" ",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings"
+    "build": "webpack",
+    "start": "webpack-dev-server"
   },
   "license": "ISC",
   "dependencies": {
@@ -52,9 +49,11 @@
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
-    "concurrently": "^2.0.0",
+    "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
-    "typings": "^1.0.4"
+    "typings": "^1.0.4",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "repository": {
     "type": "git",
