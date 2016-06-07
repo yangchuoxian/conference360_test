@@ -43,7 +43,7 @@ export class EventListComponent implements OnInit {
 			this.currentEventStatus = status
 
 			this.searchKeyword = null
-			this.fetchEvents('/get_events?status=' + status)
+			this.fetchEvents(encodeURIComponent('/get_events?status=' + status))
 		}
 	}
 	searchEvents() {
