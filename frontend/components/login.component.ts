@@ -1,4 +1,5 @@
 import { Component, Output, OnInit } from '@angular/core'
+// angular2-material dependencies
 import { MD_BUTTON_DIRECTIVES } from '@angular2-material/button'
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input'
 import { MD_PROGRESS_BAR_DIRECTIVES } from '@angular2-material/progress-bar'

@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+// angular2-material dependencies
 var button_1 = require('@angular2-material/button');
 var input_1 = require('@angular2-material/input');
 var progress_bar_1 = require('@angular2-material/progress-bar');
