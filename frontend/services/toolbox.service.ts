@@ -8,7 +8,7 @@ export class Toolbox {
 		if (day < 10) {
 			dayString = '0' + day
 		}
-		var month = date.getMonth()
+		var month = date.getMonth() + 1
 		var monthString = '' + month
 		if (month < 10) {
 			monthString = '0' + month
