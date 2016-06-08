@@ -78,7 +78,7 @@ export class DatePicker implements ControlValueAccessor, AfterViewInit {
 		e.preventDefault()
 		if (this.isSelected(date)) return
 
-		let selectedDate = moment(date.day + '.' + date.month + '.' + date.year, 'DD.MM.YYYY')
+		let selectedDate = moment(date.day + '.' + (date.month + 1) + '.' + date.year, 'DD.MM.YYYY')
 		this.setValue(selectedDate)
 		this.closeDatepicker()
 		this.changed.emit(selectedDate.toDate())
