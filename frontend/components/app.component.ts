@@ -34,6 +34,7 @@ import { constants } from '../config/constants'
 export class AppComponent implements OnInit {
 	constructor(private router: Router, private stateService: StateService, private salesforceUserService: SalesforceUserService) {}
 	ngOnInit() {
+		// listens to state change event and go to different route depending on updated state
 		this.stateService.stateChanged.subscribe(
 			(state) => {
 				if (state == constants.eventDetailsState) {
